@@ -1,6 +1,16 @@
+<?php
+session_start();
+
+if(isset($_POST['loginname']))
+{
+    $_SESSION['loginname'] = $_POST['loginname'];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,6 +23,7 @@
 </head>
 <body>
 <header>
+
     <!-- MENU ENTETE -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
@@ -34,6 +45,16 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
+                    <li>    <div class="container-fluid text-right">
+                            <strong>Hello <?php
+                                if(empty($_SESSION['loginname'])) {
+                                    echo 'Wilder ';
+                                }else {
+                                    echo  $_SESSION['loginname'];
+                                }
+                                ?>
+                                !</strong>
+                        </div></li>
                     <li><a href="#">Chocolates chips</a></li>
                     <li><a href="#">Nuts</a></li>
                     <li><a href="#">Gluten full</a></li>
@@ -42,12 +63,19 @@
                             <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
                             Cart
                         </a>
+                        <?php
+                        if(!empty($_SESSION['loginname']))
+                        {
+                            echo '<a href="../inc/disconnect.php"><input type="button" value="Disconnect"></a>';
+                        }else{
+                            echo '<a href="/login.php"><input type="button" value="Connect"></a>';
+                        }
+                        ?>
+
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-    <div class="container-fluid text-right">
-        <strong>Hello Wilder !</strong>
-    </div>
+
 </header>
